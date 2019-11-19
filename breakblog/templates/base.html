@@ -1,0 +1,126 @@
+{% from 'bootstrap/nav.html' import render_nav_item %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css' ) }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' ) }}" type="text/css">
+    {# <link rel="stylesheet" href="{{ url_for('static', filename='css/%s.min.css' % request.cookies.get('theme', 'simplex')) }}" type="text/css"> #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='open-iconic/font/css/open-iconic-bootstrap.css') }}"
+          type="text/css">
+    <title>{% block title %}{% endblock %} - BreakBlog</title>
+</head>
+<body>
+<div id="Top">
+    {% block nav %}
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('blog.index') }}">{{ admin.blog_title }}</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor"
+                        aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor">
+                    <ul class="navbar-nav mr-auto">
+                        {{ render_nav_item('blog.index', 'Home') }}
+                        {{ render_nav_item('blog.about', 'About') }}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if current_user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    New <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url_for('admin.new_post') }}">Post</a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.new_category') }}">Category</a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">Link</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Manage <span class="caret"></span>
+                                    {% if unread_comments %}
+                                        <span class="badge badge-success">new</span>
+                                    {% endif %}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url_for('admin.manage_post') }}">Post</a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.manage_category') }}">Category</a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.manage_comment') }}">
+                                        Comment
+                                        {% if unread_comments %}
+                                            <span class="badge badge-success">{{ unread_comments }}</span>
+                                        {% endif %}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.manage_link') }}">Link</a>
+                                </div>
+                            </li>
+                            {{ render_nav_item('admin.settings', 'Settings') }}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock nav %}
+</div>
+<div id="Wrapper" class="bg-gary">
+    <div class="content py-3">
+        <div class="container">
+            {# p245 样式类通过alert-{{ message[0] }}构建 #}
+            {% for message in get_flashed_messages(with_categories=True) %}
+                <div class="row">
+                    <div class="col-lg-12 col-12 px-lg-4 alert alert-{{ message[0] }}" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message[1] }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+</div>
+<div id="Bottom">
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <p>
+                <small>
+                    <span class="oi oi-home"></span>
+                    <a href="http://www.breakblog.me" title="Written by tw.huang">BreakBlog</a>
+                </small>
+            </p>
+            <p>
+                <small id="runtime" class="oi oi-timer"></small>
+            </p>
+            <p>
+                <small> {# p277 登入用户 #}
+                    {% if current_user.is_authenticated %}
+                        <span class="oi oi-account-logout"></span>
+                        <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
+                    {% else %}
+                        <span class="oi oi-account-login"></span>
+                        <a href="{{ url_for('auth.login', next=request.full_path) }}">Login</a>
+                    {% endif %}
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+{% block scripts %}
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {{ moment.include_moment(local_js="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.min.js") }}
+    {{ moment.locale(auto_detect=True) }}
+    {# p210 自动探测客户端语言，使用合适的区域语言设置 #}
+{% endblock %}
+</body>
+</html>

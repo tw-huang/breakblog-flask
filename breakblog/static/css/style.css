@@ -1,0 +1,41 @@
+/*背景颜色类*/
+.bg-gary {
+    background-color: #E2E2E2;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+/*自定义一个行宽类*/
+.sep {
+    height: 16px;
+    width: 100%;
+}
+
+/*自定义行高*/
+#Wrapper {
+    line-height: 1.7rem;
+}
+
+.pagination {
+    margin-bottom: 0;
+}
+
+#Bottom p {
+    margin: 10px 0;
+}
+
+a {
+    color: rgb(33, 37, 41);
+}
+
+#body {
+    height: 120px;
+}
+
+/*post里面的h5清除margin_buttom*/
+.list-group h5{
+    margin-bottom: 0;
+    padding: 2px 0;
+}
