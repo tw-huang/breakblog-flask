@@ -4,7 +4,7 @@
     :github_url: https://github.com/tw-huang
     :email: tw.huang@foxmail.com
 """
-from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for, abort, make_response
+from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for
 from flask_login import current_user
 
 from breakblog.emails import send_new_reply_email, send_new_comment_email
@@ -42,6 +42,8 @@ def show_post(post_id):
     pagination = Comment.query.with_parent(post).filter_by(reviewed=True).order_by(Comment.timestamp.asc()).paginate(
         page, per_page)
     comments = pagination.items
+    post.pageview = post.pageview + 1  # 文章浏览量+1
+    db.session.commit()  # p151 更新记录直接赋值，然后commit()即可
 
     # current_user.is_authenticated 从 flask-login 包导入
     if current_user.is_authenticated:  # p267 如果当前用户已登录，使用管理员表单

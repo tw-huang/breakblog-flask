@@ -54,6 +54,7 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     # p292 can_comment 字段储存是否可用评论的布尔值
     can_comment = db.Column(db.Boolean, default=True)
+    pageview = db.Column(db.Integer, default=0)  # 新加文章点击量字段
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
