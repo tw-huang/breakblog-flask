@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-lg-12 col-12 p-lg-4 bg-white">
+        <div class="col-lg-12 col-12 p-3 bg-white">
             <h2>{{ post.title }}</h2>
             <h6 class="text-muted">Category: <a href="{{ url_for('.show_category', category_id=post.category.id) }}">
                 {{ post.category.name }}</a>&nbsp;&nbsp; Date: {{ moment(post.timestamp).format('LLL') }}</h6>
@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         <div class="sep"></div>
-        <div class="col-lg-9 col-12 p-lg-4 bg-white">
+        <div class="col-lg-9 col-12 p-3 bg-white">
             <article>
                 {{ post.body|safe }}
             </article>

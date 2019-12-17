@@ -5,7 +5,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-lg-12 col-12 p-lg-4 bg-white">
+        <div class="col-lg-12 col-12 p-3 bg-white">
             <h2>{{ admin.blog_title|default('Blog Title') }}</h2>
             <h6 class="text-muted">{{ admin.blog_sub_title|default('Blog Subtitle') }}</h6>
             <div class="float-right text-muted">-- {{ admin.name }}</div>
@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="sep"></div>
-        <div class="col-lg-9 col-12 p-lg-4 bg-white">
+        <div class="col-lg-9 col-12 p-3 bg-white">
             {% include "blog/_posts.html" %}
             {% if posts %}
                 <div class="pag">{{ render_pager(pagination) }}</div>

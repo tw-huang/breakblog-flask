@@ -12,13 +12,13 @@ function show_runtime() {
     let c = (b - B) * 60;
     let C = Math.floor((b - B) * 60);
     let D = Math.floor((c - C) * 60);
-    $('#runtime').html("本站已运行: " + A + "天" + B + "小时" + C + "分" + D + "秒");
+    $('#runtime').html("Runtime : " + A + "天" + B + "小时" + C + "分" + D + "秒");
 }
 
 //评论回复时间，悬浮提示具体时间
 function render_time() {
     let time = moment($(this).data('timestamp')).format('LLL');
-    $('[data-toggle="tooltip"]').tooltip({title: time});
+    $('[data-toggle="tooltip"]').tooltip({ title: time });
 }
 
 //回复表单提示语
@@ -29,8 +29,15 @@ function set_palceholder() {
     $('#body').attr('placeholder', "评论");
 }
 
+//图片自动添加类class="img-fluid"
+function add_img_class() {
+    $('img').addClass('img-fluid');
+}
+
+//入口
 $(function () {
     show_runtime();
     render_time();
     set_palceholder();
+    add_img_class();
 });
