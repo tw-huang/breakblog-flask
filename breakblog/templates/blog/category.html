@@ -14,14 +14,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="sep"></div>
-        <div class="col-lg-9 col-12 p-3 bg-white">
+        <div class="col-lg-9 col-12 p-3 bg-white mt-3">
             {% include "blog/_posts.html" %}
             {% if posts %}
                 <div class="page-footer">{{ render_pagination(pagination) }}</div>
             {% endif %}
         </div>
-        <div class="col-lg-3 col-12 pr-lg-0">
+        <div class="col-lg-3 col-12 pr-lg-0 mt-3">
             {% include 'blog/_sidebar.html' %}
         </div>
     </div>
