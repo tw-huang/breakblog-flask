@@ -15,7 +15,11 @@
 
 /*自定义行高*/
 #Wrapper {
-    line-height: 1.7rem;
+    line-height: 1.6rem;
+}
+
+#Wrapper p{
+    margin-bottom: 8px;
 }
 
 .pagination {
@@ -38,4 +42,8 @@ a {
 .list-group h5{
     margin-bottom: 0;
     padding: 2px 0;
+}
+
+body {
+    background-color: #E2E2E2;
 }
