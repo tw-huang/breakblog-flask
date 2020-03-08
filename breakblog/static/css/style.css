@@ -47,3 +47,16 @@ a {
 body {
     background-color: #E2E2E2;
 }
+
+/*文章页面优化显示格式*/
+article h1 {
+    font-size: 28px;
+}
+
+article h2 {
+    font-size: 24px;
+}
+
+article h3 {
+    font-size: 20px;
+}
